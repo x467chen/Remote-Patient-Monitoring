@@ -1,0 +1,373 @@
+package com.ece651group8.uwaterloo.ca.ece_651_group8;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import com.ece651group8.uwaterloo.ca.ece_651_group8.bean.Config;
+import com.ece651group8.uwaterloo.ca.ece_651_group8.bean.Pid;
+import com.ece651group8.uwaterloo.ca.ece_651_group8.bean.Token;
+import com.ece651group8.uwaterloo.ca.ece_651_group8.db.DatabaseHelper;
+import com.ece651group8.uwaterloo.ca.ece_651_group8.util.VerifyUtils;
+import com.ece651group8.uwaterloo.ca.ece_651_group8.util.VerifyUtilsRecord;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+
+public class RelativeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.navigation_view)
+    NavigationView navigationView;
+    @InjectView(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
+
+    @InjectView(R.id.heart_rate_card)
+    CardView heartRateCard;
+    @InjectView(R.id.blood_pressure_card)
+    CardView bloodPressureCard;
+    @InjectView(R.id.doctor_comment_card)
+    CardView doctorCommentCard;
+
+
+    private RelativeActivity.UserHealTask userHealTask = null;
+    private RelativeActivity.UserRecordTask userRecordTask = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_relative);
+        ButterKnife.inject(this);
+
+        //set toolbar
+        setSupportActionBar(toolbar);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        heartRateCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptHealthRecord(0);
+            }
+        });
+        bloodPressureCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptHealthRecord(1);
+            }
+        });
+        doctorCommentCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptHealthRecord(2);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        Intent intent;
+
+        switch (item.getItemId()){
+            case R.id.location:
+                intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Config config = new Config();
+                String url = "http://"+config.getIp()+":"+config.getPort();
+                Uri content_url = Uri.parse(url);
+                intent.setData(content_url);
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_browser)));
+                break;
+
+            case R.id.share:
+                intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "My heart rate is 62 now!");
+                Uri uri = Uri.fromFile(getFileStreamPath("shared.png"));
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_app)));
+                break;
+
+            case R.id.log_out:
+                AlertDialog.Builder builderlog = new AlertDialog.Builder(RelativeActivity.this);
+                builderlog.setTitle("Are you sure to log out?");
+                builderlog.setPositiveButton("Yes",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int whichButton){
+                        Intent intent = new Intent();
+                        intent.setClass(RelativeActivity.this,LoginActivity.class);
+                        RelativeActivity.this.startActivity(intent);
+                        RelativeActivity.this.finish();
+                    }
+                });
+
+                builderlog.setNegativeButton("No",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int whichButton){
+
+                    }
+                });
+                AlertDialog dialoglog = builderlog.create();
+                dialoglog.show();
+                break;
+
+        }
+        return true;
+    }
+
+    private void attemptHealthInfo(){
+        //query token form db
+        DatabaseHelper databaseHelper = new DatabaseHelper(RelativeActivity.this);
+        RuntimeExceptionDao<Token,Integer> tokenDao = databaseHelper.getTokenDao();
+        List<Token> list = tokenDao.queryForEq("id","token");
+        RuntimeExceptionDao<Pid,Integer> pidDao = databaseHelper.getPidDao();
+        List<Pid> list2 = pidDao.queryForEq("id","pid");
+
+
+        if (list.size()>0 && list2.size()>0){
+            String tokenValue = list.get(0).getValue();
+            int pidValue = list2.get(0).getValue();
+
+            userHealTask = new RelativeActivity.UserHealTask(tokenValue,pidValue);
+            userHealTask.execute((Void) null);
+        }
+    }
+
+    private void attemptHealthRecord(int type){
+        //query token form db
+        DatabaseHelper databaseHelper = new DatabaseHelper(RelativeActivity.this);
+        RuntimeExceptionDao<Token,Integer> tokenDao = databaseHelper.getTokenDao();
+        List<Token> list = tokenDao.queryForEq("id","token");
+        RuntimeExceptionDao<Pid,Integer> pidDao = databaseHelper.getPidDao();
+        List<Pid> list2 = pidDao.queryForEq("id","pid");
+
+
+        if (list.size()>0 && list2.size()>0){
+            String tokenValue = list.get(0).getValue();
+            int pidValue = list2.get(0).getValue();
+
+            userRecordTask = new RelativeActivity.UserRecordTask(tokenValue,pidValue,type);
+            userRecordTask.execute((Void) null);
+        }
+
+    }
+
+    public class UserRecordTask extends AsyncTask<Void, Void, Map<String,String>> {
+
+        private final String authorization;
+        private final int pidValue;
+        private int type;
+
+        UserRecordTask(String t, int p, int type) {
+            authorization = t;
+            pidValue=1;
+            this.type = type;
+        }
+
+        @Override
+        protected Map<String,String> doInBackground(Void... params) {
+            Map<String,String> map;
+
+            try{
+                Config config = new Config();
+                String url = "http://"+config.getIp()+":"+config.getPort()+"/health-records/"+pidValue+"/";
+                map = VerifyUtilsRecord.verify(RelativeActivity.this,url,authorization);
+                return map;
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Map<String,String> map) {
+            if ("200".equals(map.get("code"))) {
+                Bundle bundle=new Bundle();
+
+                //heart
+                ArrayList<String> hearttimeList  = new ArrayList<>();
+                ArrayList<String> heartRate = new ArrayList<>();
+
+                for(int i=0;i<Integer.valueOf(map.get("heartlength"));i++) {
+                    hearttimeList.add(map.get("datetimeHeartRate"+i));
+                    heartRate.add(map.get("heartRate"+i));
+                    //Log.i("===========test",heartRate+"");
+                }
+                bundle.putStringArrayList("hearttime",hearttimeList);
+                bundle.putStringArrayList("heartRate",heartRate);
+
+                //blood pressure
+                ArrayList<String> pressuretimeList  = new ArrayList<>();
+                ArrayList<String> lowpressure = new ArrayList<>();
+                ArrayList<String> highpressure = new ArrayList<>();
+
+                for(int i=0;i<Integer.valueOf(map.get("bloodlength"));i++) {
+                    pressuretimeList.add(map.get("datePressure"+i));
+                    lowpressure.add(map.get("lowBloodPressure"+i));
+                    highpressure.add(map.get("highBloodPressure"+i));
+                }
+                bundle.putStringArrayList("pressuretime",pressuretimeList);
+                bundle.putStringArrayList("lowpressure",lowpressure);
+                bundle.putStringArrayList("highpressure",highpressure);
+
+
+                //comment
+                ArrayList<String> commenttimeList  = new ArrayList<>();
+                ArrayList<String> comment = new ArrayList<>();
+                for(int i=0;i<Integer.valueOf(map.get("commentlength"));i++) {
+                    commenttimeList.add(map.get("datetimeComments"+i));
+                    comment.add(map.get("comments"+i));
+                }
+                bundle.putStringArrayList("commenttime",commenttimeList);
+                bundle.putStringArrayList("comment",comment);
+
+                if(type==0){
+                    Intent intent = new Intent();
+                    intent.putExtra("bundle",bundle);
+                    intent.setClass(RelativeActivity.this,RecordHeartActivity.class);
+                    RelativeActivity.this.startActivity(intent);
+                }else if(type==1){
+                    Intent intent = new Intent();
+                    intent.putExtra("bundle", bundle);
+                    intent.setClass(RelativeActivity.this, RecordBloodActivity.class);
+                    RelativeActivity.this.startActivity(intent);
+                }else{Intent intent = new Intent();
+                    intent.putExtra("bundle", bundle);
+                    intent.setClass(RelativeActivity.this, RecordCommentActivity.class);
+                    RelativeActivity.this.startActivity(intent);}
+
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(RelativeActivity.this,LoginActivity.class);
+                RelativeActivity.this.startActivity(intent);
+                RelativeActivity.this.finish();
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Connection time out. Please login again.", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            userHealTask = null;
+        }
+    }
+
+
+
+
+    //profile
+    public class UserHealTask extends AsyncTask<Void, Void, Map<String,String>> {
+
+        private final String authorization;
+        private final int pidValue;
+
+        UserHealTask(String t, int p) {
+            authorization = t;
+            pidValue=p;
+        }
+
+        @Override
+        protected Map<String,String> doInBackground(Void... params) {
+            Map<String,String> map;
+            Map<String,String> map2;
+            try{
+                Config config = new Config();
+                String url = "http://"+config.getIp()+":"+config.getPort()+"/health-records/"+pidValue+"/";
+                //String url2 = "http://"+config.getIp()+":"+config.getPort()+"/patients/"+pidValue+"/";
+                map = VerifyUtils.verify(RelativeActivity.this,url,authorization);
+                return map;
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+        //get Map from doInBackground
+        //turn to the user activity depending on their identity
+        @Override
+        protected void onPostExecute(final Map<String,String> map) {
+            if ("200".equals(map.get("code"))) {
+                Bundle bundle=new Bundle();
+
+                bundle.putString("name","Marry");
+
+                bundle.putString("age",map.get("age"));
+                bundle.putString("height",map.get("height"));
+                bundle.putString("weight",map.get("weight"));
+                bundle.putString("sex",map.get("sex"));
+
+                bundle.putString("email","patient@gmail.com");
+                bundle.putString("phone","5197817899");
+
+
+                Intent intent = new Intent();
+                intent.putExtra("bundle",bundle);
+                intent.setClass(RelativeActivity.this,ProfileActivity.class);
+                RelativeActivity.this.startActivity(intent);
+
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(RelativeActivity.this,LoginActivity.class);
+                RelativeActivity.this.startActivity(intent);
+                RelativeActivity.this.finish();
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Connection time out. Please login again.", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            userHealTask = null;
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            AlertDialog.Builder builder = new AlertDialog.Builder(RelativeActivity.this);
+            builder.setTitle("Are you sure to log out?");
+            builder.setPositiveButton("Yes",new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
+                    Intent intent = new Intent();
+                    intent.setClass(RelativeActivity.this,LoginActivity.class);
+                    RelativeActivity.this.startActivity(intent);
+                    RelativeActivity.this.finish();
+                }
+            });
+
+            builder.setNegativeButton("No",new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
+
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+        return true;
+    }
+}
