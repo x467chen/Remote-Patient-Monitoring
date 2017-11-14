@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.1.1_c551137929cbdd6f96c3d9482ea1007629dbf2d1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/library-2.4.0_25919c465ecfb11abffa341e8fc44ea40dec1352/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.github.flavienlaurent.datetimepicker/library/0.0.2/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2fc859b7abb78d29169f6a582b45cbe1f3f1a4cc">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.flavienlaurent.datetimepicker-library-0.0.2_ffb7da228651d8135b37d869d182870b47d8e0d1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.1.1_50091e85a18087a552db3cbc0e3f6c5c9b4eaf1a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.1.1_8d92a5c6eb847c4d1a5f4709672494c65b1cdee3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-android/0.17.6/5ee05a22c96810eb453bb21e63f0c6ea83d9335e/rxjava-android-0.17.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5ee05a22c96810eb453bb21e63f0c6ea83d9335e">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/rxjava-android-0.17.6_fbfdb94f7e296cd4ea8fba1d1acfd02f6bc442f6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.netflix.rxjava/rxjava-core/0.17.6/b35d55668bb9af8b78e39ea0fda9d313b3707e11/rxjava-core-0.17.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="b35d55668bb9af8b78e39ea0fda9d313b3707e11">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/rxjava-core-0.17.6_bde496f52b20252ca117120f467d095dcfdb049f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.1.1_a6a258ca1868f2d7d5845f960341b2ead5ee56f1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/5.1.2/daf5472b0df6dabaceb6ad755b3812535863965a/butterknife-5.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="daf5472b0df6dabaceb6ad755b3812535863965a">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-5.1.2_b8f0d2282b2a4574fe89b1774c59fb48c02e0365/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.1.1_64ed9efe5edcca3a78a8151a8dd15d9e45182e80/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="cee5b10beac21ac84cb2de8a2983e686b8974a35">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_1d31738c945fd776c77546679df521d853765836/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.1.1_6c4cf333e293c1b2fee946f8bdf69d228d75867c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-core/5.0/3382b8260646dd334a1b9c1b3d412fcb73d8b21/ormlite-core-5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="03382b8260646dd334a1b9c1b3d412fcb73d8b21">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/ormlite-core-5.0_706062bfc24a91762b8f3d5fea9198a55f962032/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.j256.ormlite/ormlite-android/5.0/1f065373aeef355dd9e2fd9854efd5ed4d54f6d/ormlite-android-5.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="01f065373aeef355dd9e2fd9854efd5ed4d54f6d">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/ormlite-android-5.0_70806bb89d2a733ca4483c7ef3e40370c9312964/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="43479f64f22391e69c6146993bb3b6d321360da1">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_527b97d0da60b1a1acf0bb12119e9cca9d7b7e82/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/.gradle/caches/modules-2/files-2.1/com.nostra13.universalimageloader/universal-image-loader/1.9.3/a85588bec3e2c4584d593d3f15df1677321bca72/universal-image-loader-1.9.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a85588bec3e2c4584d593d3f15df1677321bca72">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/universal-image-loader-1.9.3_d8da2309a89a3cfca8ff9a58d2dc36408f01d853/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/liuyue/Downloads/ECE_651_Group8/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.1.1_9f9a35a47615f03026277df279113df8895b24b6/classes.dex" />
+    </item>
+
+</items>
